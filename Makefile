@@ -12,13 +12,13 @@
 
 CC=gcc
 C_FLAGS= -Wall -Wextra -Werror
-NAME=philosophers
+NAME=philo
 
 
-all: philosophers
+all: philo
 
-$(NAME): philosophers.c
-	$(CC) $(C_FLAGS) -o $(NAME) philosophers.c
+$(NAME): philo.c
+	$(CC) $(C_FLAGS) -o $(NAME) philo.c
 
 fclean:
 	rm -rf $(NAME)

@@ -1,8 +1,16 @@
 Philosophers
+objectif: 16 novembre
 
-1. Découper lister
+1. Découper lister (important savoir ce que je dois faire pour avancer)
 2. Comprendre
 3. Start
+
+learning process:
+- voir les notions
+- reformuler
+- refaire et tester
+
+apprendre beaucoup + les notions dans chaque projet
 
 consigne:
 • One or more philosophers sit at a round table.
@@ -23,26 +31,20 @@ a philosopher dies of starvation.
 • No need to say that philosophers should avoid dying!
 
 
-makefile 
-- comment faire
-- tester
-.h files
+marche a suivre modifiable:
+makefile ✅
+h file ✅
 
-Squelette du projet découper les étapes en gros
+overview video ou chatgpt
+petite recherche de base notions (threads mutex semaphores conditions d'attente)
+comprendre le probleme en gros découper les étapes en gros pseudo code
+coder une version simple du projet
+lister les notions importantes et faire une recherche en profondeur et implementer dans le code:
+
+
+noter ce qui manque pour que le programme fonctionne
 Rechercher les notions dont j’ai besoin pour chaque étapes
-
-Vulgarisation du probleme a résoudre:
-1. creer les philosophes 
-2. gerer les ressources et les priorites pour manger
-
-
-a faire :
-regarder les Threads
-decouper le projet
-faire un squelette grossier du projet
-
-
-
+implementer les etapes manquantes
 
 
 Notions:
@@ -51,5 +53,5 @@ mutex
 semaphores
 conditons d'attentes
 
-Makefile
-Fichier .h
+probleme philosophers:
+
