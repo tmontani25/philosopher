@@ -6,7 +6,7 @@
 #    By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/30 17:33:19 by tmontani          #+#    #+#              #
-#    Updated: 2024/11/02 19:00:00 by tmontani         ###   ########.fr        #
+#    Updated: 2024/11/04 18:15:02 by tmontani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME=philo
 all: philo
 
 $(NAME): philo.c
-	$(CC) $(C_FLAGS) -o $(NAME) philo.c
+	$(CC) $(C_FLAGS) -o $(NAME) philo.c -lpthread
 
 fclean:
 	rm -rf $(NAME)

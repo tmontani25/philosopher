@@ -35,13 +35,11 @@ marche a suivre modifiable:
 makefile ✅
 h file ✅
 
-overview video ou chatgpt
+overview video ou chatgpt medium (comprendre le pb)
 petite recherche de base notions (threads mutex semaphores conditions d'attente)
 comprendre le probleme en gros découper les étapes en gros pseudo code
 coder une version simple du projet
 lister les notions importantes et faire une recherche en profondeur et implementer dans le code:
-
-
 noter ce qui manque pour que le programme fonctionne
 Rechercher les notions dont j’ai besoin pour chaque étapes
 implementer les etapes manquantes
@@ -52,6 +50,15 @@ Threads
 mutex
 semaphores
 conditons d'attentes
+
+sources:
+mia combeau blog: https://www.codequoi.com/
+medium article: https://medium.com/@jalal92/the-dining-philosophers-7157cc05315
+youtube: https://www.youtube.com/watch?v=UGQsvVKwe90
+youtube oceano
+
+
+
 
 probleme philosophers:
 
