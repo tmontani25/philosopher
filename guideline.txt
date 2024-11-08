@@ -7,6 +7,7 @@ objectif: 16 novembre
 
 learning process:
 - voir les notions
+- prise de notes
 - reformuler
 - refaire et tester
 
@@ -32,24 +33,39 @@ a philosopher dies of starvation.
 
 
 marche a suivre modifiable:
-makefile ✅
-h file ✅
 
-overview video ou chatgpt medium (comprendre le pb)
-petite recherche de base notions (threads mutex semaphores conditions d'attente)
-comprendre le probleme en gros découper les étapes en gros pseudo code
+1. overview video ou chatgpt medium (comprendre le pb) ✅
+petite recherche de base notions (threads mutex conditions d'attente)✅
+
+comprendre le probleme en gros découper les étapes en gros
+designer/chercher une reponse au probleme
+pseudo code(structure du projet)
 coder une version simple du projet
-lister les notions importantes et faire une recherche en profondeur et implementer dans le code:
+
+2. lister les notions importantes et faire une recherche en profondeur et implementer dans le code:
 noter ce qui manque pour que le programme fonctionne
 Rechercher les notions dont j’ai besoin pour chaque étapes
 implementer les etapes manquantes
 
 
 Notions:
-Threads
-mutex
+Threads ✅
+mutex ✅
+deadlocks
+race conditions ✅
 semaphores
 conditons d'attentes
+
+fonctions:
+gettimeofday
+pthread_create
+pthread_join
+pthread_detach
+pthread_mutex (all)
+
+
+
+
 
 sources:
 mia combeau blog: https://www.codequoi.com/
@@ -61,4 +77,3 @@ youtube oceano
 
 
 probleme philosophers:
-
