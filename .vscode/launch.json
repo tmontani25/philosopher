@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(lldb) Joindre",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/a.out",   // Remplace a.out par ton nom d'exécutable
+            "MIMode": "lldb"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug",
+            "program": "${workspaceFolder}/a.out",   // Remplace a.out par ton nom d'exécutable
+            "args": [],  // Si tu veux passer des arguments à ton programme, ajoutes-les ici
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "build",  // Optionnel: si tu veux construire ton projet avant de démarrer le débogage
+            "stopAtEntry": false      // Si tu veux arrêter le programme dès qu'il entre dans le code
+        }
+    ]
+}

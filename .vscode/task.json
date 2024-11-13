@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-g",              // Option pour inclure des informations de débogage
+                "mon_programme.c", // Remplace ceci par ton fichier source
+                "-o", "a.out"      // Nom de l'exécutable généré
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Compiling with gcc"
+        }
+    ]
+}

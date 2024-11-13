@@ -36,23 +36,23 @@ marche a suivre modifiable:
 
 1. overview video ou chatgpt medium (comprendre le pb) ✅
 petite recherche de base notions (threads mutex conditions d'attente)✅
-
-comprendre le probleme en gros découper les étapes en gros
-designer/chercher une reponse au probleme
-pseudo code(structure du projet)
-coder une version simple du projet
-
-2. lister les notions importantes et faire une recherche en profondeur et implementer dans le code:
-noter ce qui manque pour que le programme fonctionne
-Rechercher les notions dont j’ai besoin pour chaque étapes
+comprendre le probleme en gros découper les étapes en gros✅
+designer/chercher une reponse au probleme✅
+pseudo code(structure du projet)✅
+lister les notions importantes✅
+coder une version simple du projet (10 philos)
+faire une recherche en profondeur et implementer dans le code
 implementer les etapes manquantes
+
+
 
 
 Notions:
 Threads ✅
 mutex ✅
-deadlocks
+deadlocks✅
 race conditions ✅
+fichiers json debuggage
 semaphores
 conditons d'attentes
 
@@ -62,6 +62,29 @@ pthread_create
 pthread_join
 pthread_detach
 pthread_mutex (all)
+
+
+probleme philosophers:
+
+parsing:
+renvoyer erreurs
+recuperer les arguments
+
+lancement de la simulation avec:
+nb de philo, time_to_die, time_to_eat, time_to_sleep
+nb de fois qu'ils doivent manger
+ 
+creer un thread pour chaque philosopher numerotes
+initialiser la structure pour chaque thread avec les bonnes fourchettes
+
+faire manger une moitie des philos lock les fourchettes
+philo de paires mangent lock les fourchettes
+philo de impaires sleep
+unlock
+
+philo de paires mangent lock fourchettes
+philo paires sleep
+unlock
 
 
 
@@ -76,4 +99,16 @@ youtube oceano
 
 
 
-probleme philosophers:
+
+
+notions:
+voir
+reformuler expliquer
+tester
+
+new guideline:
+overview projet✅
+decoupage du probleme en gros formuler✅
+notions a connaitres voir reformuler✅
+version simplifiee
+implementer le reste
