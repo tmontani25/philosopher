@@ -6,24 +6,32 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:35:44 by tmontani          #+#    #+#             */
-/*   Updated: 2024/11/13 16:44:14 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:39:18 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void    ft_message(t_philo *philo, char *str)
+{
+    
+    printf("philo %d: %s\n", philo->id, str);
+}
 void    *start(void *arg)
 {
     t_philo *philo = (t_philo *)arg;
 
     usleep(100);
-   printf("philo paires id: %d\n ", philo->id);
+    printf("philo id: %d\n", philo->id);
     if (philo->id % 2 == 0)
     {
+        ft_message(philo, "has taken a fork");
         pthread_mutex_lock(philo->l_fork);
+        ft_message(philo, "has taken a fork");
         pthread_mutex_lock(philo->r_fork);
-        usleep(philo->data_ptr->die);
-        
+
+        ft_message(philo, "is eating");
+        usleep(philo->data_ptr->eat);
     }
     pthread_mutex_unlock(philo->l_fork);
     pthread_mutex_unlock(philo->r_fork);

@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:33:08 by tmontani          #+#    #+#             */
-/*   Updated: 2024/11/13 16:11:55 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:37:43 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	*ft_memset(void *b, int c, size_t len);
 
 //start
 void    create_threads(t_philo **philo, t_data *data);
+void    ft_message(t_philo *philo, char *str);
 
 // assigner chaque fourchette de data
 // aux fourchettes de la strucuture philo

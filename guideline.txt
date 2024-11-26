@@ -40,7 +40,7 @@ comprendre le probleme en gros découper les étapes en gros✅
 designer/chercher une reponse au probleme✅
 pseudo code(structure du projet)✅
 lister les notions importantes✅
-coder une version simple du projet (10 philos)
+coder une version simple du projet
 faire une recherche en profondeur et implementer dans le code
 implementer les etapes manquantes
 
@@ -63,28 +63,19 @@ pthread_join
 pthread_detach
 pthread_mutex (all)
 
+etapes version simplifiee:
+parser: nb neg
 
-probleme philosophers:
+creer une structure data avec tous les inputs nb_philo time_to_die ...✅
+creer une structure philo pour chaque thread qui contient la fourchette de droite et de gauche + un pointeur vers data qui permet d'avoir acces au parametres✅
+allouer de la memoire pour chaque structure philo et lier chaque thread a un structure philo✅
+allouer de la memoire pour les fourchettes mutex✅
+assigner les bonnes fourchettes aux philo✅
 
-parsing:
-renvoyer erreurs
-recuperer les arguments
+lancer la simulation
+faire manger les paires time_to_eat
 
-lancement de la simulation avec:
-nb de philo, time_to_die, time_to_eat, time_to_sleep
-nb de fois qu'ils doivent manger
- 
-creer un thread pour chaque philosopher numerotes
-initialiser la structure pour chaque thread avec les bonnes fourchettes
 
-faire manger une moitie des philos lock les fourchettes
-philo de paires mangent lock les fourchettes
-philo de impaires sleep
-unlock
-
-philo de paires mangent lock fourchettes
-philo paires sleep
-unlock
 
 
 
