@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:35:44 by tmontani          #+#    #+#             */
-/*   Updated: 2024/11/14 21:39:18 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:37:37 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,41 @@
 
 void    ft_message(t_philo *philo, char *str)
 {
-    
     printf("philo %d: %s\n", philo->id, str);
 }
+
 void    *start(void *arg)
 {
     t_philo *philo = (t_philo *)arg;
 
-    usleep(100);
-    printf("philo id: %d\n", philo->id);
-    if (philo->id % 2 == 0)
+    while (1) // Une boucle infinie pour simuler la vie du philosophe
     {
-        ft_message(philo, "has taken a fork");
-        pthread_mutex_lock(philo->l_fork);
-        ft_message(philo, "has taken a fork");
-        pthread_mutex_lock(philo->r_fork);
-
+        ft_message(philo, "is thinking");
+        if (philo->id % 2 == 0) // Philosophes pairs prennent les fourchettes dans cet ordre
+        {
+            pthread_mutex_lock(philo->l_fork);
+            ft_message(philo, "has taken a fork");
+            pthread_mutex_lock(philo->r_fork);
+            ft_message(philo, "has taken a fork");
+        }
+        else // Philosophes impairs prennent les fourchettes dans l'ordre inverse
+        {
+            pthread_mutex_lock(philo->r_fork);
+            ft_message(philo, "has taken a fork");
+            pthread_mutex_lock(philo->l_fork);
+            ft_message(philo, "has taken a fork");
+        }
         ft_message(philo, "is eating");
-        usleep(philo->data_ptr->eat);
-    }
-    pthread_mutex_unlock(philo->l_fork);
-    pthread_mutex_unlock(philo->r_fork);
-    usleep(100);
-      if (philo->id % 2 != 0)
-    {
-        // printf("philo impaires id: %d\n", philo->id);
-        puts("");
+        usleep(philo->data_ptr->eat * 1000); // Convertir le temps en millisecondes
+
+        pthread_mutex_unlock(philo->l_fork);
+        pthread_mutex_unlock(philo->r_fork);
+        ft_message(philo, "is sleeping");
+        usleep(philo->data_ptr->sleep * 1000);
     }
     return (NULL);
 }
+
 
 void create_threads(t_philo **philo, t_data *data)
 {
