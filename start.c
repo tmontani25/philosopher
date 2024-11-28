@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:35:44 by tmontani          #+#    #+#             */
-/*   Updated: 2024/11/26 15:37:37 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:00:27 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,50 @@ void    ft_message(t_philo *philo, char *str)
     printf("philo %d: %s\n", philo->id, str);
 }
 
-void    *start(void *arg)
+void *start(void *arg)
 {
     t_philo *philo = (t_philo *)arg;
 
-    while (1) // Une boucle infinie pour simuler la vie du philosophe
+    while (1) // Boucle infinie pour la simulation
     {
         ft_message(philo, "is thinking");
-        if (philo->id % 2 == 0) // Philosophes pairs prennent les fourchettes dans cet ordre
-        {
-            pthread_mutex_lock(philo->l_fork);
-            ft_message(philo, "has taken a fork");
-            pthread_mutex_lock(philo->r_fork);
-            ft_message(philo, "has taken a fork");
-        }
-        else // Philosophes impairs prennent les fourchettes dans l'ordre inverse
-        {
-            pthread_mutex_lock(philo->r_fork);
-            ft_message(philo, "has taken a fork");
-            pthread_mutex_lock(philo->l_fork);
-            ft_message(philo, "has taken a fork");
-        }
-        ft_message(philo, "is eating");
-        usleep(philo->data_ptr->eat * 1000); // Convertir le temps en millisecondes
 
+        // Synchronisation pour pairs et impairs
+        pthread_mutex_lock(&philo->data_ptr->turn_mutex);
+        while ((philo->id % 2 == 0 && philo->data_ptr->pair_turn == 0) ||
+               (philo->id % 2 != 0 && philo->data_ptr->pair_turn == 1))
+        {
+            pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
+            usleep(100); // Petite pause avant de revérifier
+            pthread_mutex_lock(&philo->data_ptr->turn_mutex);
+        }
+        pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
+
+        // Prendre les fourchettes et manger
+        pthread_mutex_lock(philo->l_fork);
+        ft_message(philo, "has taken a fork");
+        pthread_mutex_lock(philo->r_fork);
+        ft_message(philo, "has taken a fork");
+
+        ft_message(philo, "is eating");
+        philo->last_meal = current_time();
+        philo->meals_eaten++;
+        usleep(philo->data_ptr->eat * 1000); // Manger
+
+        // Libérer les fourchettes
         pthread_mutex_unlock(philo->l_fork);
         pthread_mutex_unlock(philo->r_fork);
+
+        // Alterner les tours (pairs/impairs)
+        pthread_mutex_lock(&philo->data_ptr->turn_mutex);
+        philo->data_ptr->pair_turn = !philo->data_ptr->pair_turn;
+        pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
+
         ft_message(philo, "is sleeping");
-        usleep(philo->data_ptr->sleep * 1000);
+        usleep(philo->data_ptr->sleep * 1000); // Dormir
     }
     return (NULL);
 }
-
 
 void create_threads(t_philo **philo, t_data *data)
 {
