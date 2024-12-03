@@ -74,7 +74,7 @@ assigner les bonnes fourchettes aux philo✅
 
 lancer la simulation
 faire manger les paires time_to_eat
-
+ 
 
 
 
@@ -103,3 +103,14 @@ decoupage du probleme en gros formuler✅
 notions a connaitres voir reformuler✅
 version simplifiee
 implementer le reste
+
+
+
+parsing
+monitor copy
+
+faire les changements necessaires pour que ca marche avec le monitor
+tester
+
+essayer de le finir
+oceanos philosophers

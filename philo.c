@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:54:00 by tmontani          #+#    #+#             */
-/*   Updated: 2024/11/28 19:05:14 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:01:58 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void	create_philo(t_data *data, t_philo **philo)
 
 void init_philos(t_philo **philo, int nb_philo)
 {
-    philo = malloc(sizeof(t_philo) * nb_philo);
+    *philo = malloc(sizeof(t_philo) * nb_philo);
     if (*philo == NULL)
     {
+		puts("here\n");
         perror("Error malloc");
         exit(1);
     }
