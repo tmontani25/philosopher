@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:54:00 by tmontani          #+#    #+#             */
-/*   Updated: 2024/11/29 15:01:58 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:39:48 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	create_philo(t_data *data, t_philo **philo)
 	int i;
 
 	i = -1;
+	data->time_start = ft_current_time();
 	while (++i < data->nb_philo)
 	{
 		(*philo)[i].id = i + 1;
@@ -25,7 +26,8 @@ void	create_philo(t_data *data, t_philo **philo)
 		(*philo)[i].l_fork = &data->fork_tab[i];
 		(*philo)[i].r_fork = &data->fork_tab[(i + 1) % data->nb_philo];
 		(*philo)[i].meals_eaten = 0;
-		(*philo)[i].last_meal = 0;
+		(*philo)[i].last_meal = data->time_start;
+		
 	}
 	data->philos = philo;
 	return ;
@@ -57,12 +59,6 @@ void	init_data(t_data *data, char **argv)
 	data->sleep = atoi(argv[4]);
 	data->nb_meal = atoi(argv[5]);
 	data->simulation_active = 0;
-	printf("%d\n", data->nb_philo);
-	if (pthread_mutex_init(&data->turn_mutex, NULL) != 0)
-	{
-    perror("Failed to initialize turn_mutex");
-    exit(EXIT_FAILURE); // Gérer une erreur d'initialisation si besoin
-	}
 	data->fork_tab = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	while (i < data->nb_philo)
     {
