@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:35:44 by tmontani          #+#    #+#             */
-/*   Updated: 2024/12/04 15:51:18 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:23:36 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void    ft_eat(t_philo *philo)
 }
 void    ft_message(t_philo *philo, char *str)
 {
+    pthread_mutex_lock(&philo->data_ptr->turn_mutex);
 	if (philo->data_ptr->simulation_active == 1)
 		return ;
-	pthread_mutex_lock(&philo->data_ptr->turn_mutex);
 	printf("%ld %ld %s\n", ft_current_time() - philo->data_ptr->time_start, philo->id, str);
 	pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
 }
@@ -71,27 +71,44 @@ void *start(void *arg)
 
 void create_threads(t_philo **philo, t_data *data)
 {
-	int i;
+    int i;
 
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		// Création de chaque thread avec une pause pour observer les IDs dans l’ordre
-		if (pthread_create(&(*philo)[i].thread, NULL, start, &(*philo)[i]) != 0)
-		{
-			perror("Error creating thread");
-		}
-		monitoring(philo);
-		i++;
-	}
+    // Crée les threads des philosophes
+    i = 0;
+    while (i < data->nb_philo)
+    {
+        if (pthread_create(&(*philo)[i].thread, NULL, start, &(*philo)[i]) != 0)
+        {
+            perror("Error creating philosopher thread");
+            exit(EXIT_FAILURE); // Arrêt en cas d'erreur critique
+        }
+        usleep(100); // Petite pause pour synchroniser
+        i++;
+    }
 
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		if (pthread_join((*philo)[i].thread, NULL) != 0)
-		{
-			perror("Error joining thread");
-		}
-		i++;
-	}
+    // Crée le thread de monitoring
+    pthread_t monitor_thread;
+    if (pthread_create(&monitor_thread, NULL, (void *(*)(void *))monitoring, philo) != 0)
+    {
+        perror("Error creating monitor thread");
+        exit(EXIT_FAILURE); // Arrêt en cas d'erreur critique
+    }
+
+    // Attend la fin des threads des philosophes
+    i = 0;
+    while (i < data->nb_philo)
+    {
+        if (pthread_join((*philo)[i].thread, NULL) != 0)
+        {
+            perror("Error joining philosopher thread");
+        }
+        i++;
+    }
+
+    // Attend la fin du thread de monitoring
+    if (pthread_join(monitor_thread, NULL) != 0)
+    {
+        perror("Error joining monitor thread");
+    }
 }
+

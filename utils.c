@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 12:53:14 by tmontani          #+#    #+#             */
-/*   Updated: 2024/12/04 15:56:04 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:14:55 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ long ft_current_time(void)
 }
 
 
-void *monitoring(t_philo *philo)
+void *monitoring(t_philo **philo)
 {
     puts("salut");
-    while (philo->data_ptr->simulation_active)
+    while ((*philo)->data_ptr->simulation_active)
     {
         puts("inside\n");
-        for (int i = 0; i < philo->data_ptr->nb_philo; i++) {
-            pthread_mutex_lock(&philo->data_ptr->turn_mutex);
-            if (ft_current_time() - philo->data_ptr->philos[i]->last_meal > philo->data_ptr->die) {
-                ft_message(philo->data_ptr->philos[i], "died");
-                philo->data_ptr->simulation_active = 0;
-                pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
+        for (int i = 0; i < (*philo)->data_ptr->nb_philo; i++) {
+            pthread_mutex_lock(&(*philo)->data_ptr->turn_mutex);
+            if (ft_current_time() - (*philo)->data_ptr->philos[i]->last_meal > (*philo)->data_ptr->die) {
+                ft_message((*philo)->data_ptr->philos[i], "died");
+                (*philo)->data_ptr->simulation_active = 0;
+                pthread_mutex_unlock(&(*philo)->data_ptr->turn_mutex);
                 return (NULL);
             }
-            pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
+            pthread_mutex_unlock(&(*philo)->data_ptr->turn_mutex);
         }
     }
     return (NULL);

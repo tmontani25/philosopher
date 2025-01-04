@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:33:08 by tmontani          #+#    #+#             */
-/*   Updated: 2024/12/04 15:54:22 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:14:27 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void init_philos(t_philo **philo, int nb_philo);
 
 //utils.c
 long ft_current_time(void);
-void *monitoring(t_philo *philo);
+void *monitoring(t_philo **philo);
 void ft_usleep(long time);
 
 //start
