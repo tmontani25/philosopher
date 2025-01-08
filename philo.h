@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:33:08 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/03 17:14:27 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:12:54 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_data
 	long	pair_turn;
 	int	simulation_active;
 	long time_start;
-
+	pthread_mutex_t sim_mutex;
 	pthread_mutex_t	turn_mutex;
 	pthread_mutex_t *fork_tab;
 	t_philo	**philos;

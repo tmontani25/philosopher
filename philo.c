@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:54:00 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/07 16:38:16 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:14:32 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	create_philo(t_data *data, t_philo **philo)
 	int i;
 
 	i = -1;
-	data->time_start = ft_current_time();
 	while (++i < data->nb_philo)
 	{
 		(*philo)[i].id = i + 1;
@@ -27,7 +26,6 @@ void	create_philo(t_data *data, t_philo **philo)
 		(*philo)[i].r_fork = &data->fork_tab[(i + 1) % data->nb_philo];
 		(*philo)[i].meals_eaten = 0;
 		(*philo)[i].last_meal = data->time_start;
-		
 	}
 	data->philos = philo;
 	return ;
@@ -41,7 +39,6 @@ void init_philos(t_philo **philo, int nb_philo)
     *philo = malloc(sizeof(t_philo) * nb_philo);
     if (*philo == NULL)
     {
-		puts("here\n");
         perror("Error malloc");
         exit(1);
     }
@@ -63,7 +60,7 @@ void	init_data(t_data *data, char **argv)
 	data->fork_tab = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	while (i < data->nb_philo)
     {
-        pthread_mutex_init(&(data->fork_tab[i]), NULL);  // Initialisation de chaque mutex
+        pthread_mutex_init(&(data->fork_tab[i]), NULL);  // Initialisation de chaque mutex fourchette
 		i++;
     }
 	i = 0;

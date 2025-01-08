@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:35:44 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/08 10:32:00 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:34:30 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,26 @@ void    ft_eat(t_philo *philo)
 {
 		// Prendre les fourchettes et manger
 	pthread_mutex_lock(philo->l_fork);
-	ft_message(philo, "has taken a fork");
+	ft_message(philo, "has taken left fork");
+	if (philo->data_ptr->simulation_active == 0)
+	{
+		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
+		return ;
+	}
+	if (philo->data_ptr->nb_philo == 1) // si il y a qu'un philo r_fork et l_fork sont les memes
+	{
+		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
+		return ;
+	}
 	pthread_mutex_lock(philo->r_fork);
-	ft_message(philo, "has taken a fork");
-
+	ft_message(philo, "has taken right fork");
 	ft_message(philo, "is eating");
 	philo->last_meal = ft_current_time();
 	philo->meals_eaten++;
 	ft_usleep(philo->data_ptr->eat); // Manger
 
-	// Libérer les fourchettes
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 }
@@ -39,7 +49,7 @@ void    ft_message(t_philo *philo, char *str)
 {
     pthread_mutex_lock(&philo->data_ptr->turn_mutex);
 	if (philo->data_ptr->simulation_active == 0)
-	{
+	{ 
 		pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
 		return ;
 	}
@@ -50,8 +60,6 @@ void    ft_message(t_philo *philo, char *str)
 void *start(void *arg)
 {
 	t_philo *philo = (t_philo *)arg;
-
-
 		// Synchronisation pour pairs et impairs
 		// pthread_mutex_lock(&philo->data_ptr->turn_mutex);
 	if (philo->id & 1)
@@ -59,9 +67,11 @@ void *start(void *arg)
 		// pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
 	while (1) // Boucle infinie pour la simulation
 	{
-		pthread_mutex_lock(&philo->data_ptr->turn_mutex);
+		// pthread_mutex_lock(&philo->data_ptr->turn_mutex);
 		if (philo->data_ptr->simulation_active == 0)
 		{
+			if (philo->l_fork)
+				pthread_mutex_unlock(philo->l_fork);
 			pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
 			return (NULL);
 		}
@@ -75,10 +85,9 @@ void *start(void *arg)
 void create_threads(t_philo **philo, t_data *data)
 {
     int i;
-
-    // Crée les threads des philosophes
+	pthread_t monitor_thread;
+	
     i = 0;
-
     while (i < data->nb_philo)
     {
         if (pthread_create(&(*philo)[i].thread, NULL, start, &(*philo)[i]) != 0)
@@ -89,30 +98,19 @@ void create_threads(t_philo **philo, t_data *data)
         usleep(100); // Petite pause pour synchroniser
         i++;
     }
-
-    // Crée le thread de monitoring
-    pthread_t monitor_thread;
     if (pthread_create(&monitor_thread, NULL, (void *(*)(void *))monitoring, philo) != 0)
     {
         perror("Error creating monitor thread");
         exit(EXIT_FAILURE); // Arrêt en cas d'erreur critique
     }
-
-    // Attend la fin des threads des philosophes
     i = 0;
     while (i < data->nb_philo)
     {
         if (pthread_join((*philo)[i].thread, NULL) != 0)
-        {
             perror("Error joining philosopher thread");
-        }
         i++;
     }
-
-    // Attend la fin du thread de monitoring
     if (pthread_join(monitor_thread, NULL) != 0)
-    {
         perror("Error joining monitor thread");
-    }
 }
 
