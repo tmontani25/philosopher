@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:35:44 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/03 17:23:36 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:38:27 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ void    ft_eat(t_philo *philo)
 void    ft_message(t_philo *philo, char *str)
 {
     pthread_mutex_lock(&philo->data_ptr->turn_mutex);
-	if (philo->data_ptr->simulation_active == 1)
+	if (philo->data_ptr->simulation_active == 0)
+	{
+		pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
 		return ;
+	}
 	printf("%ld %ld %s\n", ft_current_time() - philo->data_ptr->time_start, philo->id, str);
 	pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
 }
@@ -57,7 +60,7 @@ void *start(void *arg)
 	while (1) // Boucle infinie pour la simulation
 	{
 		pthread_mutex_lock(&philo->data_ptr->turn_mutex);
-		if (philo->data_ptr->simulation_active == 1)
+		if (philo->data_ptr->simulation_active == 0)
 		{
 			pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
 			return (NULL);
@@ -75,6 +78,7 @@ void create_threads(t_philo **philo, t_data *data)
 
     // Crée les threads des philosophes
     i = 0;
+
     while (i < data->nb_philo)
     {
         if (pthread_create(&(*philo)[i].thread, NULL, start, &(*philo)[i]) != 0)

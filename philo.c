@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:54:00 by tmontani          #+#    #+#             */
-/*   Updated: 2024/12/04 15:39:48 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:38:16 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	init_data(t_data *data, char **argv)
 	data->eat = atoi(argv[3]);
 	data->sleep = atoi(argv[4]);
 	data->nb_meal = atoi(argv[5]);
-	data->simulation_active = 0;
+	data->simulation_active = 1;
+	data->time_start = ft_current_time();
 	data->fork_tab = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	while (i < data->nb_philo)
     {
