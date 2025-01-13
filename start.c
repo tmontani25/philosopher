@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:35:44 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/08 16:34:30 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:04:53 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void    ft_eat(t_philo *philo)
 	{
 		pthread_mutex_unlock(philo->l_fork);
 		pthread_mutex_unlock(&philo->data_ptr->turn_mutex);
+		philo->data_ptr->simulation_active = 0;
 		return ;
 	}
 	pthread_mutex_lock(philo->r_fork);
