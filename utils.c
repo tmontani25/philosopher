@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 12:53:14 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/08 16:15:26 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:21:03 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int check_death(t_philo **philo)
     i = 0;
     while (i < (*philo)->data_ptr->nb_philo) // Assurez-vous que vous parcourez le tableau correctement
     {
-        if (ft_current_time() - (*philo)[i].last_meal >= (*philo)[i].data_ptr->die)
+        if (ft_current_time() - (*philo)[i].last_meal > (*philo)[i].data_ptr->die)
             return (1); // Vérifier si le philosophe est mort (temps écoulé depuis son dernier repas >= temps limite)
         i++; // N'oubliez pas d'incrémenter `i` pour avancer dans le tableau
     }
@@ -48,20 +48,22 @@ void *monitoring(t_philo **philo)
     int i;
 
     i = 0;
-    puts("hello\n");
     while ((*philo)->data_ptr->simulation_active)
     {
         if (check_death(philo))
         {
-            puts("monitor check\n");
+            ft_message((*philo), "has died\n");
             (*philo)->data_ptr->simulation_active = 0;
             return (NULL);
         }
-        while (i < (*philo)->data_ptr->nb_philo)
+        if ((*philo)->data_ptr->nb_meal != -1)
         {
-            if ((*philo)[i].meals_eaten < (*philo)->data_ptr->nb_meal)
-                break;
-            i++;
+            while (i < (*philo)->data_ptr->nb_philo)
+            {
+                if ((*philo)[i].meals_eaten < (*philo)->data_ptr->nb_meal)
+                    break;
+                i++;
+            }
         }
         if (i == (*philo)->data_ptr->nb_philo)
         {

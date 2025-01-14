@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:33:08 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/08 16:12:54 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:18:20 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_philo
 
 
 //philo.c
-void	init_data(t_data *data, char **argv);
+void	init_data(t_data *data, char **argv, int argc);
 void init_philos(t_philo **philo, int nb_philo);
 
 //utils.c

@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:54:00 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/08 16:14:32 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:21:02 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void init_philos(t_philo **philo, int nb_philo)
 	
 }
 
-void	init_data(t_data *data, char **argv)
+void	init_data(t_data *data, char **argv, int argc)
 {
 	int i;
 
@@ -54,7 +54,10 @@ void	init_data(t_data *data, char **argv)
 	data->die = atoi(argv[2]);
 	data->eat = atoi(argv[3]);
 	data->sleep = atoi(argv[4]);
-	data->nb_meal = atoi(argv[5]);
+	if (argc == 6)
+		data->nb_meal = atoi(argv[5]);
+	else
+		data->nb_meal = -1;
 	data->simulation_active = 1;
 	data->time_start = ft_current_time();
 	data->fork_tab = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->nb_philo);
@@ -73,12 +76,12 @@ int main(int argc, char *argv[])
 	t_philo *philo;
 
 	philo = NULL;
-	if (argc != 6)
+	if (argc != 6 && argc != 5)
 	{
 		write(1, "wrong nb of arguments\n", 22);
 		return (0);
 	}
-	init_data(&data, argv);
+	init_data(&data, argv, argc);
 	init_philos(&philo, data.nb_philo);
 	create_philo(&data, &philo);
 	create_threads(&philo, &data);
