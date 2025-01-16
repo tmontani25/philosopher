@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 12:53:14 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/15 14:30:01 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:02:15 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	create_monitor_thread(t_philo **philo)
 	}
 	if (pthread_join(monitor_thread, NULL) != 0)
 		perror("Error joining monitor thread");
-	
 }
 
 void	ft_usleep(long time)
