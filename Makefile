@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/30 17:33:19 by tmontani          #+#    #+#              #
-#    Updated: 2024/11/13 12:53:28 by tmontani         ###   ########.fr        #
+#    Updated: 2025/01/15 14:39:03 by tmontani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ C_FLAGS = -Wall -Wextra -Werror
 NAME = philo
 
 # Liste des fichiers source
-SRC = philo.c start.c utils.c # Ajoute ici tous tes fichiers .c
+SRC = philo.c start.c utils.c free_and_destroy.c # Ajoute ici tous tes fichiers .c
 
 # Liste des fichiers objets, générés automatiquement à partir des fichiers source
 OBJ = $(SRC:.c=.o)

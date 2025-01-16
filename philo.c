@@ -6,16 +6,15 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:54:00 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/14 15:21:02 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:08:11 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
-// fonction qui initialise les structures philo
 void	create_philo(t_data *data, t_philo **philo)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < data->nb_philo)
@@ -29,25 +28,21 @@ void	create_philo(t_data *data, t_philo **philo)
 	}
 	data->philos = philo;
 	return ;
-	//une structure philo a ete cree par philo
-	//assigner chaque structure philo a un thread
-	
 }
 
-void init_philos(t_philo **philo, int nb_philo)
+void	init_philos(t_philo **philo, int nb_philo)
 {
-    *philo = malloc(sizeof(t_philo) * nb_philo);
-    if (*philo == NULL)
-    {
-        perror("Error malloc");
-        exit(1);
-    }
-	
+	*philo = malloc(sizeof(t_philo) * nb_philo);
+	if (*philo == NULL)
+	{
+		perror("Error malloc");
+		exit(1);
+	}
 }
 
 void	init_data(t_data *data, char **argv, int argc)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->nb_philo = atoi(argv[1]);
@@ -60,20 +55,21 @@ void	init_data(t_data *data, char **argv, int argc)
 		data->nb_meal = -1;
 	data->simulation_active = 1;
 	data->time_start = ft_current_time();
-	data->fork_tab = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+	data->fork_tab = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* data->nb_philo);
 	while (i < data->nb_philo)
-    {
-        pthread_mutex_init(&(data->fork_tab[i]), NULL);  // Initialisation de chaque mutex fourchette
+	{
+		pthread_mutex_init(&(data->fork_tab[i]), NULL);
 		i++;
-    }
+	}
 	i = 0;
 	return ;
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_data data;
-	t_philo *philo;
+	t_data	data;
+	t_philo	*philo;
 
 	philo = NULL;
 	if (argc != 6 && argc != 5)
@@ -85,9 +81,4 @@ int main(int argc, char *argv[])
 	init_philos(&philo, data.nb_philo);
 	create_philo(&data, &philo);
 	create_threads(&philo, &data);
-	//initialiser chaque thread
-	//initialiser la structure pour chaque thread
-	//assigner les fourchettes de data a chaque thread
-	// commencer la simulation
-	
 }
