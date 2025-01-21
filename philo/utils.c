@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 12:53:14 by tmontani          #+#    #+#             */
-/*   Updated: 2025/01/16 15:02:15 by tmontani         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:11:15 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,25 @@ int	check_death(t_philo **philo)
 	{
 		if (ft_current_time() - (*philo)[i].last_meal >
 				(*philo)[i].data_ptr->die)
-			return (1);
+			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 void	*monitoring(t_philo **philo)
 {
 	int	i;
+	int	dead_philo;
 
 	i = 0;
 	while ((*philo)->data_ptr->simulation_active)
 	{
-		if (check_death(philo))
+		dead_philo = check_death(philo);
+		if (dead_philo != -1)
 		{
-			ft_message((*philo), "has died");
-			(*philo)->data_ptr->simulation_active = 0;
-			return (NULL);
+			ft_message(&(*philo)[dead_philo], "has died");
+			return ((*philo)->data_ptr->simulation_active = 0, NULL);
 		}
 		if ((*philo)->data_ptr->nb_meal != -1)
 		{
